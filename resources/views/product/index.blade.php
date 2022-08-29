@@ -27,7 +27,9 @@
 					<td>{{ $element->product_name_en }}</td>
 					<td>{{ $element->product_name_ja }}</td>
 					<td>{{ date('Y-m-d',strtotime($element->created_at)) }}</td>
-					<td></td>
+					<td>
+						<a href="{{ route('product.show',['id'=>$element->id]) }}">SHOW</a>
+					</td>
 				</tr>
 				@endforeach
 			</tbody>

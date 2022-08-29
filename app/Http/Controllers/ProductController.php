@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use MongoDB\BSON\ObjectID;
 
 class ProductController extends Controller
 {
@@ -43,7 +44,8 @@ class ProductController extends Controller
         $postData = $request->validated();
         $postData['user_info']  = $this->userInfo();
         $postData['category']   = ProductCategory::find($postData['category'])->toArray();
-        // dd($postData['category']);
+        $postData['comment']   = $this->comments();
+
         $productModel = Product::create($postData);
         return back()->with("success","Your recored have been saved.");
     }
@@ -54,10 +56,28 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
-    }
+        $delete_flag = 1;
+        $productModel = Product::raw(function ($collection) use ($id,$delete_flag){
+            return $collection->aggregate(array(
+                array(
+                    '$unwind' => array(
+                        'path' => '$comment',
+                    )
+                ),
+                array(
+                    '$match' => array(
+                        '_id' => new ObjectID($id),
+                    )
+                ),
+                array(
+                    '$limit' => 2
+                ),                           
+            ));
+        })->toArray();
+        return view('product.show',compact('productModel'));
+     }
 
     /**
      * Show the form for editing the specified resource.
