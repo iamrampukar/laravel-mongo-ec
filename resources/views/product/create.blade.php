@@ -18,6 +18,16 @@
 			</div>
 
 			<div class="mb-3">
+				<label for="category" class="form-label">Category</label>
+				<select class="form-select form-select-sm" name="category" id="category" aria-label="Default select example">
+					<option selected>--select--</option>
+					@foreach ($categoryList as $element)
+						<option value="{{ $element->id }}">{{ $element->category_name_en }}</option>
+					@endforeach
+				</select>
+			</div>
+
+			<div class="mb-3">
 				<label for="details" class="form-label">Details</label>
 				<textarea class="form-control form-control-sm" id="details" name="detail" rows="5" placeholder="Enter details..."></textarea>
 			</div>

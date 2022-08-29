@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
@@ -27,7 +28,8 @@ class ProductController extends Controller
     public function create()
     {
         $productModel = new Product();
-        return view('product.create',compact('productModel'));
+        $categoryList = ProductCategory::get();
+        return view('product.create',compact('productModel','categoryList'));
     }
 
     /**
@@ -40,6 +42,8 @@ class ProductController extends Controller
     {
         $postData = $request->validated();
         $postData['user_info']  = $this->userInfo();
+        $postData['category']   = ProductCategory::find($postData['category'])->toArray();
+        // dd($postData['category']);
         $productModel = Product::create($postData);
         return back()->with("success","Your recored have been saved.");
     }
