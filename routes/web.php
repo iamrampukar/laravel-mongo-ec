@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +20,19 @@ Route::get('/', function () {
 });
 
 Route::prefix('product-category')->group(function () {
-    Route::get('/',[ProductCategoryController::class,'index'])->name('list');
-    Route::get('create',[ProductCategoryController::class,'create'])->name('create');
-    Route::post('store',[ProductCategoryController::class,'store'])->name('store');
-    Route::get('show/{id}',[ProductCategoryController::class,'show'])->name('show');
-    Route::get('edit/{id}',[ProductCategoryController::class,'edit'])->name('edit');
-    Route::put('update/{id}',[ProductCategoryController::class,'edit'])->name('update');
+    Route::get('/',[ProductCategoryController::class,'index'])->name('product.category.list');
+    Route::get('create',[ProductCategoryController::class,'create'])->name('product.category.create');
+    Route::post('store',[ProductCategoryController::class,'store'])->name('product.category.store');
+    Route::get('show/{id}',[ProductCategoryController::class,'show'])->name('product.category.show');
+    Route::get('edit/{id}',[ProductCategoryController::class,'edit'])->name('product.category.edit');
+    Route::put('update/{id}',[ProductCategoryController::class,'edit'])->name('product.category.update');
+});
+
+Route::prefix('product')->group(function () {
+    Route::get('/',[ProductController::class,'index'])->name('product.list');
+    Route::get('create',[ProductController::class,'create'])->name('product.create');
+    Route::post('store',[ProductController::class,'store'])->name('product.store');
+    Route::get('show/{id}',[ProductController::class,'show'])->name('product.show');
+    Route::get('edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+    Route::put('update/{id}',[ProductController::class,'edit'])->name('product.update');
 });

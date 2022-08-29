@@ -15,8 +15,8 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        $productModel = ProductCategory::paginate(3);
-        return view('product_category.index',compact('productModel'));
+        $categoryModel = ProductCategory::paginate(3);
+        return view('product_category.index',compact('categoryModel'));
     }
 
     /**
@@ -26,8 +26,8 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        $productModel = new ProductCategory();
-        return view('product_category.create',compact('productModel'));
+        $categoryModel = new ProductCategory();
+        return view('product_category.create',compact('categoryModel'));
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductCategoryController extends Controller
         $postData               = $request->validated();
         $postData['user_info']  = $this->userInfo();
 
-        $productModel = ProductCategory::create($postData);
+        $categoryModel = ProductCategory::create($postData);
         return back()->with('success','Recored have been saved.');
     }
 

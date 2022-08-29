@@ -14,25 +14,25 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>CATEGORY NAME(en)</th>
-					<th>CATEGORY NAME(ja)</th>
+					<th>PRODUCT NAME(en)</th>
+					<th>PRODUCT NAME(ja)</th>
 					<th>CREATED</th>
 					<th></th>
 				</tr>					
 			</thead>
 			<tbody>
-				@foreach ($categoryModel as $key => $element)
+				@foreach ($productModel as $key => $element)
 				<tr>
 					<td>{{ ++$key }}</td>
-					<td>{{ $element->category_name_en }}</td>
-					<td>{{ $element->category_name_ja }}</td>
+					<td>{{ $element->product_name_en }}</td>
+					<td>{{ $element->product_name_ja }}</td>
 					<td>{{ date('Y-m-d',strtotime($element->created_at)) }}</td>
 					<td></td>
 				</tr>
 				@endforeach
 			</tbody>
 		</table>
-		{{ $categoryModel->links() }}
+		{{ $productModel->links() }}
 	</div>
 </div>
 @endsection

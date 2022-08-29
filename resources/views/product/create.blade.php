@@ -3,17 +3,18 @@
 @section('content')
 <div class="row">
 	<div class="col-md-6">
-		<form method="post" action="{{ route('product.category.store') }}">
+		<h5>Product</h5>
+		<form method="post" action="{{ route('product.store') }}">
 			@csrf
 			@method('POST')
 			<div class="mb-3">
-				<label for="category-name-en" class="form-label">Category Name(en)</label>
-				<input type="text" class="form-control form-control-sm" id="category-name-en" name="category_name_en" placeholder="Enter category name(en)">
+				<label for="product-name-en" class="form-label">Product Name(en)</label>
+				<input type="text" class="form-control form-control-sm" id="product-name-en" name="product_name_en" placeholder="Enter product name(en)">
 			</div>
 
 			<div class="mb-3">
-				<label for="category-name-ja" class="form-label">Category Name(ja)</label>
-				<input type="text" class="form-control form-control-sm" id="category-name-ja" name="category_name_ja" placeholder="Enter category name(ja)">
+				<label for="product-name-ja" class="form-label">Product Name(ja)</label>
+				<input type="text" class="form-control form-control-sm" id="product-name-ja" name="product_name_ja" placeholder="Enter product name(ja)">
 			</div>
 
 			<div class="mb-3">
