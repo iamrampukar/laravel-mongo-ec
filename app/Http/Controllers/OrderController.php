@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -13,9 +14,39 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $orderModel = [];
+        if($request->session()->has('cart_item')){
+            $orderModel = $request->session()->get('cart_item');
+        }
+        return view('order.index',compact('orderModel'));
+    }
+
+    public function removed(Request $request) {
+        if($request->session()->has('cart_item')){
+            $request->session()->flush();
+        }
+        return back();
+    }
+
+    public function checkout(Request $request) {
+        $postData = $request->all();
+        if($request->session()->has('cart_item')){
+            $cartItem = $request->session()->get('cart_item');
+            $cartItem["net_total"] = $postData['net_total'];
+            $cartItem["shippingInfo"] = array(
+                "full_name"=>$postData['full_name'],
+                "address" =>$postData['address'],
+                "credit_cart" =>$postData['credit_cart'],
+                // "net_total"=> $postData['net_total'],
+            );
+            // dd($cartItem);
+            Order::create($cartItem);
+            $request->session()->flush();
+            return redirect()->route('product.list')->with('success','Your cart item dispatch');
+        }
+        return back()->with('error','Record not saved');
     }
 
     /**

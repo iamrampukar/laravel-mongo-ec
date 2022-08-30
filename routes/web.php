@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +37,15 @@ Route::prefix('product')->group(function () {
     Route::get('show/{id}',[ProductController::class,'show'])->name('product.show');
     Route::get('edit/{id}',[ProductController::class,'edit'])->name('product.edit');
     Route::put('update/{id}',[ProductController::class,'edit'])->name('product.update');
+});
+
+Route::prefix('order-detail')->group(function () {
+    Route::get('show/{id}',[ProductDetailController::class,'show'])->name('product_detail.show');
+    Route::post('add-cart/{id}',[ProductDetailController::class,'addCart'])->name('product_detail.add_cart');
+});
+
+Route::prefix('order')->group(function () {
+    Route::get('/',[OrderController::class,'index'])->name('order.list');
+    Route::post('checkout',[OrderController::class,'checkout'])->name('order.checkout');
+    Route::get('removed',[OrderController::class,'removed'])->name('order.removed');
 });

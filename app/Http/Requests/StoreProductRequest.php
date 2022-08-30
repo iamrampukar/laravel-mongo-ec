@@ -28,6 +28,7 @@ class StoreProductRequest extends FormRequest
             'product_name_ja'       => ['required'],
             'detail'                => ['required'],
             'category'                => ['required'],
+            'price'                => ['required'],
         ];
     }
 }

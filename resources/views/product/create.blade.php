@@ -18,6 +18,11 @@
 			</div>
 
 			<div class="mb-3">
+				<label for="price" class="form-label">Price</label>
+				<input type="text" class="form-control form-control-sm" id="price" name="price" placeholder="0.00">
+			</div>
+
+			<div class="mb-3">
 				<label for="category" class="form-label">Category</label>
 				<select class="form-select form-select-sm" name="category" id="category" aria-label="Default select example">
 					<option selected>--select--</option>
