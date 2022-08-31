@@ -33,7 +33,8 @@ class OrderController extends Controller
     public function checkout(Request $request) {
         $postData = $request->all();
         if($request->session()->has('cart_item')){
-            $cartItem = $request->session()->get('cart_item');
+            $cartItem['product'] = $request->session()->get('cart_item');
+
             $cartItem["net_total"] = $postData['net_total'];
             $cartItem["shippingInfo"] = array(
                 "full_name"=>$postData['full_name'],
@@ -48,7 +49,6 @@ class OrderController extends Controller
         }
         return back()->with('error','Record not saved');
     }
-
     /**
      * Show the form for creating a new resource.
      *
