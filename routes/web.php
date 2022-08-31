@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,9 @@ Route::prefix('order')->group(function () {
     Route::get('/',[OrderController::class,'index'])->name('order.list');
     Route::post('checkout',[OrderController::class,'checkout'])->name('order.checkout');
     Route::get('removed',[OrderController::class,'removed'])->name('order.removed');
+});
+
+Route::prefix('payment')->group(function () {
+    Route::get('save',[PaymentController::class,'paymentSave'])->name('payment.save');
+    Route::get('list',[PaymentController::class,'index'])->name('payment.list');
 });
